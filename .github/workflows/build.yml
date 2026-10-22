@@ -11,18 +11,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build APK
-        id: build
-        uses: flet-dev/flet-build-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          target: apk
-          runner-python-version: "3.12"
-          build-number: ${{ github.run_number }}
+          python-version: '3.12'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install Flet CLI
+        run: uv pip install --system flet
+
+      - name: Build APK
+        run: |
+          flet build apk --verbose
+        env:
+          FLET_CLI_NO_RICH_OUTPUT: 1
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: HackerTerminal-APK
-          path: ${{ steps.build.outputs.archive-path }}
-          archive: false
+          path: build/apk/*.apk
           if-no-files-found: error
