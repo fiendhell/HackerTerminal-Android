@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  CI: true
+  FLET_CLI_NO_RICH_OUTPUT: 1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +29,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.3' # Фиксируем стабильную версию
+          flutter-version: '3.24.3'
           channel: 'stable'
 
       - name: Install Flet
@@ -34,8 +38,8 @@ jobs:
       - name: Build APK
         run: |
           flutter config --no-analytics
-          # Используем --non-interactive, чтобы Flet не ждал ввода
-          flet build apk --non-interactive
+          # Фокус: команда yes будет бесконечно слать 'y' на любые вопросы Flet
+          yes | flet build apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
