@@ -24,4 +24,5 @@ jobs:
         with:
           name: HackerTerminal-APK
           path: ${{ steps.build.outputs.archive-path }}
-          archive: falses
+          archive: false
+          if-no-files-found: error
