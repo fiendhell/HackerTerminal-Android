@@ -1,9 +1,9 @@
 [project]
 name = "hacker-terminal"
 version = "1.0.0"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "flet"
+    "flet==0.28.3"
 ]
 
 [tool.flet]
