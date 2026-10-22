@@ -1,0 +1,8 @@
+[project]
+name = "hacker-terminal"
+version = "1.0.0"
+requires-python = ">=3.9"
+
+[tool.flet]
+org = "com.yourname"
+product = "HackerTerminal"
